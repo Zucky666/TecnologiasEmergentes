@@ -1,0 +1,12 @@
+-- Consulta con JOIN para mostrar datos del mes deseado (por ejemplo, 'Enero')
+SELECT
+    e.id AS empleado_id,
+    e.nombre || ' ' || e.apellido AS nombre_completo,
+    e.sueldo,
+    rh.mes,
+    rh.dias_atraso,
+    -- Descuento del 2% del sueldo por cada día de atraso
+    ROUND((e.sueldo * 0.02 * rh.dias_atraso)::numeric, 2) AS descuento
+FROM empleados e
+JOIN recursos_humanos rh ON e.id = rh.empleado_id
+WHERE rh.mes = 'Enero';
